@@ -11,6 +11,7 @@ namespace VintageShop.Entidades
         public int Id { get; set; }
         public string Descripcion { get; set; }
 
+        public virtual List<Pago> Pagos { get; set; } = new List<Pago>();
     
     }
 }

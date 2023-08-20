@@ -68,14 +68,14 @@ namespace ShopVintage.AccesoDatos
             modelBuilder.Entity<Zapato>()
                .Property(x => x.Imagen);
 
-            //modelBuilder.Entity<Zapato>()
-            //            .HasOne(x => x.Marca)
-            //            .WithMany(m => m.ZapatosList)
-            //            .HasForeignKey(x => x.IdMarca);
+            modelBuilder.Entity<Zapato>()
+                        .HasOne(x => x.Marca)
+                        .WithMany(m => m.ZapatosList)
+                        .HasForeignKey(x => x.IdMarca);
 
             //modelBuilder.Entity<Zapato>()
-            //            .HasOne(x => x.TallesList)
-            //            .WithMany(m => m)
+            //            .HasOne(x => x.ta)
+            //            .WithMany(m => );
 
 
 
@@ -91,10 +91,10 @@ namespace ShopVintage.AccesoDatos
                 .Property(x => x.TalleNumero);
 
 
-            //modelBuilder.Entity<Talle>()
-            //            .HasOne(x => x.Zapato)
-            //            .WithMany(m => m.TallesList)
-            //            .HasForeignKey(x => x.IdZapato);
+            modelBuilder.Entity<Talle>()
+                        .HasOne(x => x.ZapatoUnico)
+                        .WithMany(m => m.Talles)
+                        .HasForeignKey(x => x.IdZapato);
 
 
             //--------Pago--------
@@ -109,17 +109,15 @@ namespace ShopVintage.AccesoDatos
                         .Property(x => x.IdPrecioZapato);
 
 
-            //modelBuilder.Entity<Pago>()
-            //            .HasOne(fp => fp.FormaDePagoUtilizada)
-            //            .WithMany(fp => fp.Pagos)
-            //            .HasForeignKey(x => x.IdFormaDePago);
+            modelBuilder.Entity<Pago>()
+                        .HasOne(fp => fp.FormaDePago)
+                        .WithMany(fp => fp.Pagos)
+                        .HasForeignKey(x => x.IdFormaDePago);
 
-            //modelBuilder.Entity<Pago>()
-            //            .HasOne(z => z.ZapatoSeleccionado)
-            //            .WithMany(p => p.PagoUtilizado)
-            //            .HasForeignKey(x => x.IdPrecioZapato);
-
-
+            modelBuilder.Entity<Pago>()
+                        .HasOne(z => z.ZapatoAPagar)
+                        .WithMany(p => p.PagosList)
+                        .HasForeignKey(x => x.IdPrecioZapato);
 
             //--------FormaDePago--------
 
@@ -156,10 +154,15 @@ namespace ShopVintage.AccesoDatos
                 .Property(x => x.Cantidad)
                 .IsRequired();
 
-            //modelBuilder.Entity<Stock>()
-            //            .HasOne(z => z.Zapato)
-            //            .WithMany(s => s.StocksList)
-            //            .HasForeignKey(t =>t.IdTalle);
+            modelBuilder.Entity<Stock>()
+                        .HasOne(z => z.ZapatoStock)
+                        .WithMany(s => s.StocksList)
+                        .HasForeignKey(t => t.IdZapato);
+
+            modelBuilder.Entity<Stock>()
+                        .HasOne(z => z.TalleStock)
+                        .WithMany(s => s.StocksList)
+                        .HasForeignKey(t => t.IdTalle);
 
         }
     }

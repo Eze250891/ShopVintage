@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShopVintage.AccesoDatos;
 
@@ -10,9 +11,11 @@ using ShopVintage.AccesoDatos;
 namespace ShopVintage.AccesoDatos.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230820175815_RelacionPagoFormaDePago")]
+    partial class RelacionPagoFormaDePago
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -73,8 +76,6 @@ namespace ShopVintage.AccesoDatos.Migrations
 
                     b.HasIndex("IdFormaDePago");
 
-                    b.HasIndex("IdPrecioZapato");
-
                     b.ToTable("Pagos");
                 });
 
@@ -97,10 +98,6 @@ namespace ShopVintage.AccesoDatos.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdTalle");
-
-                    b.HasIndex("IdZapato");
-
                     b.ToTable("Stocks");
                 });
 
@@ -119,8 +116,6 @@ namespace ShopVintage.AccesoDatos.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IdZapato");
 
                     b.ToTable("Talles");
                 });
@@ -187,45 +182,7 @@ namespace ShopVintage.AccesoDatos.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("VintageShop.Entidades.Zapato", "ZapatoAPagar")
-                        .WithMany("PagosList")
-                        .HasForeignKey("IdPrecioZapato")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("FormaDePago");
-
-                    b.Navigation("ZapatoAPagar");
-                });
-
-            modelBuilder.Entity("VintageShop.Entidades.Stock", b =>
-                {
-                    b.HasOne("VintageShop.Entidades.Talle", "TalleStock")
-                        .WithMany("StocksList")
-                        .HasForeignKey("IdTalle")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("VintageShop.Entidades.Zapato", "ZapatoStock")
-                        .WithMany("StocksList")
-                        .HasForeignKey("IdZapato")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("TalleStock");
-
-                    b.Navigation("ZapatoStock");
-                });
-
-            modelBuilder.Entity("VintageShop.Entidades.Talle", b =>
-                {
-                    b.HasOne("VintageShop.Entidades.Zapato", "ZapatoUnico")
-                        .WithMany("Talles")
-                        .HasForeignKey("IdZapato")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ZapatoUnico");
                 });
 
             modelBuilder.Entity("VintageShop.Entidades.Zapato", b =>
@@ -247,20 +204,6 @@ namespace ShopVintage.AccesoDatos.Migrations
             modelBuilder.Entity("VintageShop.Entidades.Marca", b =>
                 {
                     b.Navigation("ZapatosList");
-                });
-
-            modelBuilder.Entity("VintageShop.Entidades.Talle", b =>
-                {
-                    b.Navigation("StocksList");
-                });
-
-            modelBuilder.Entity("VintageShop.Entidades.Zapato", b =>
-                {
-                    b.Navigation("PagosList");
-
-                    b.Navigation("StocksList");
-
-                    b.Navigation("Talles");
                 });
 #pragma warning restore 612, 618
         }

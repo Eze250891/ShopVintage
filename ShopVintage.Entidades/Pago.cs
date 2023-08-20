@@ -13,5 +13,11 @@ namespace VintageShop.Entidades
 
         public int IdPrecioZapato { get; set; }
 
+        public virtual FormaDePago FormaDePago { get; set; }
+
+        public virtual Zapato ZapatoAPagar { get; set; }
+
+       
+
     }
 }

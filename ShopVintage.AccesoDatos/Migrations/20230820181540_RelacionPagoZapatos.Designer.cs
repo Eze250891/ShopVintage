@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShopVintage.AccesoDatos;
 
@@ -10,9 +11,11 @@ using ShopVintage.AccesoDatos;
 namespace ShopVintage.AccesoDatos.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230820181540_RelacionPagoZapatos")]
+    partial class RelacionPagoZapatos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,10 +99,6 @@ namespace ShopVintage.AccesoDatos.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IdTalle");
-
-                    b.HasIndex("IdZapato");
 
                     b.ToTable("Stocks");
                 });
@@ -198,25 +197,6 @@ namespace ShopVintage.AccesoDatos.Migrations
                     b.Navigation("ZapatoAPagar");
                 });
 
-            modelBuilder.Entity("VintageShop.Entidades.Stock", b =>
-                {
-                    b.HasOne("VintageShop.Entidades.Talle", "TalleStock")
-                        .WithMany("StocksList")
-                        .HasForeignKey("IdTalle")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("VintageShop.Entidades.Zapato", "ZapatoStock")
-                        .WithMany("StocksList")
-                        .HasForeignKey("IdZapato")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("TalleStock");
-
-                    b.Navigation("ZapatoStock");
-                });
-
             modelBuilder.Entity("VintageShop.Entidades.Talle", b =>
                 {
                     b.HasOne("VintageShop.Entidades.Zapato", "ZapatoUnico")
@@ -249,16 +229,9 @@ namespace ShopVintage.AccesoDatos.Migrations
                     b.Navigation("ZapatosList");
                 });
 
-            modelBuilder.Entity("VintageShop.Entidades.Talle", b =>
-                {
-                    b.Navigation("StocksList");
-                });
-
             modelBuilder.Entity("VintageShop.Entidades.Zapato", b =>
                 {
                     b.Navigation("PagosList");
-
-                    b.Navigation("StocksList");
 
                     b.Navigation("Talles");
                 });
