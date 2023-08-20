@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ShopVintage.AccesoDatos\ShopVintage.AccesoDatos.csproj" />
+    <ProjectReference Include="..\ShopVintage.Entidades\ShopVintage.Entidades.csproj" />
+  </ItemGroup>
+
+</Project>
